@@ -11,16 +11,6 @@ echo "🚀 Start Build Process"
 echo
 
 mkdir -p out
-ARCH=arm64
-SUBARCH=arm64
-CLANG_PATH=~/toolchains/clang-r428724/bin
-PATH=${CLANG_PATH}:${PATH}
-DTC_EXT=/usr/bin/dtc
-CLANG_TRIPLE=aarch64-linux-gnu-
-CROSS_COMPILE=~/toolchains/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9/bin/aarch64-linux-android-
-CROSS_COMPILE_ARM32=~/toolchains/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9/bin/arm-linux-androideabi-
-LD_LIBRARY_PATH=~/toolchains/clang-r428724/lib64:$LD_LIBRARY_PATH
-
 echo
 echo "📦 Set DEFCONFIG"
 echo 

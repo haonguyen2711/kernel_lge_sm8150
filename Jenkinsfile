@@ -2,9 +2,10 @@ pipeline {
   agent any
 
   environment {
-    // Khai báo biến dùng toàn cục
+    // Biến dùng toàn cục
     CLANG_PATH = "/home/konadev/toolchains/clang-r428724/bin"
     CROSS_PATH = "/home/konadev/toolchains/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9/bin"
+    SF_USER = "konadev" 
   }
 
   stages {
@@ -37,6 +38,31 @@ pipeline {
           # Chạy file shell để build kernel
           chmod +x ubuntu.sh
           bash ./ubuntu.sh
+        '''
+      }
+    }
+
+    stage('Upload to SourceForge') {
+      when {
+        expression { fileExists('release/Dragon-AK3.zip') }
+      }
+      steps {
+        sh '''#!/bin/bash
+          set -e
+
+          # Tạo tên file theo định dạng HHMM-DDMMYYYY
+          TIMESTAMP=$(date +"%H%M-%d%m%Y")
+          FINAL_NAME="${TIMESTAMP}-Dragon-AK3.zip"
+
+          # Đổi tên file
+          mv release/Dragon-AK3.zip "release/$FINAL_NAME"
+
+          echo "▶️ Uploading $FINAL_NAME to SourceForge..."
+
+          # Upload lên SourceForge qua scp
+          scp -i ~/.ssh/id_rsa "release/$FINAL_NAME" "$SF_USER@frs.sourceforge.net:/home/frs/project/lg-v50-oss/DragonKernel/"
+
+          echo "✅ Upload hoàn tất!"
         '''
       }
     }

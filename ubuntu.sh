@@ -1,10 +1,5 @@
 #!/bin/bash
 
-echo
-echo "🔧 Clean Build Directory"
-echo 
-
-make clean && make mrproper
 
 echo
 echo "🚀 Start Build Process"

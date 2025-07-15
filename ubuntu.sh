@@ -5,6 +5,12 @@ echo
 echo "🚀 Start Build Process"
 echo
 
+echo
+echo "🔧 Clean Build Directory"
+echo 
+
+make clean && make mrproper
+
 mkdir -p out
 echo
 echo "📦 Set DEFCONFIG"
